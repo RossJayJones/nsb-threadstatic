@@ -2,28 +2,19 @@
 
 namespace Server
 {
-    public class MyService : IMyService, IDisposable
+    public class MyService : IMyService
     {
         private readonly Guid _id;
 
-        private readonly ObjectPool<IMyService> _pool;
-
-        public MyService(ObjectPool<IMyService> pool)
+        public MyService()
         {
             _id = Guid.NewGuid();
-            _pool = pool;
             Console.WriteLine($"---- creating {_id}");
         }
 
         public string DoWork()
         {
             return _id.ToString();
-        }
-
-        public void Dispose()
-        {
-            Console.WriteLine($"---- releasing {_id}");
-            _pool.Release(this);
         }
     }
 }
